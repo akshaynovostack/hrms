@@ -36,7 +36,7 @@ function makeTranslationFunction() {
 			translated_text = messages[`${key}:${context}`];
 		}
 		if (!translated_text) {
-			translated_text = messages[key] || txt;
+    		translated_text = messages[key] || override(key) || txt;
 		}
 		if (replace && typeof replace === "object") {
 			translated_text = format(translated_text, replace);
@@ -61,6 +61,15 @@ function makeTranslationFunction() {
 				}
 			}
 		);
+	}
+	function override(key) {
+	    const BRANDING = {
+	        "Login to Frappe HR": "Login to Novostack HR",
+	        "Frappe HR": "Novostack HR",
+	        "HRMS": "Novostack HR"
+	    };
+	
+	    return BRANDING[key];
 	}
 }
 
